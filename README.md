@@ -1,4 +1,4 @@
-gpkg-tiles
+gpkg-core
 ==========
 
 An experimental core geopackage specification derived from the geopackage candidate standard. 
