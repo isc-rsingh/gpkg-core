@@ -53,7 +53,7 @@ A GeoPackage SHALL contain a `geopackage_contents` table or view as defined in t
 |data_type  |text       |Type of data stored in the table. Must be one of features, featuresWithRasters, rasters or tiles|no| | |
 |identifier |text       |A human-readable identifier (i.e. short name) for the table_name|no| | |
 |description|text       |A human-readable description for the table_name|no|""| |
-|last_change |text       |timestamp value in ISO 8601 format as defined by the strftime function `'%Y-%m-%dT%H:%M:%fZ'` format string applied to the current time|no|`strftime('%Y-%m-%dT%H:%M:%fZ', CURRENT_TIMESTAMP)`| |
+|last_change |text       |timestamp value in ISO 8601 format as defined by the strftime function `'%Y-%m-%dT%H:%M:%fZ'` format string applied to the current time|no|`strftime` `('%Y-%m-%dT%H:%M:%fZ',` ` CURRENT_TIMESTAMP)`| |
 |min_x       |double     |Bounding box for all content in table_name|no|-180.0| |
 |min_y       |double     |Bounding box for all content in table_name|no|-90.0| |
 |max_x       |double     |Bounding box for all content in table_name|no|180.0| |
@@ -250,7 +250,7 @@ The second component of GeoPackage metadata is the `metadata_reference` table or
 |table_name |text       |Name of the table to which this metadata reference applies; must be the name of a table in `geometry_columns` or `raster_columns` table|no|‘undefined’| |
 |column_name|text       |Name of the column to which this metadata reference applies; ‘undefined’ for reference_scope of ‘table’ or ‘row’, or the name of a column in the `table_name` table for reference_scope of ‘column’ or ‘row/col’|no|‘undefined’| |
 |row_id_value|int       |0 for reference_scope of ‘table’ or ‘column’, or the rowed of a row record in the table_name table for reference_scope of ‘row’ or ‘row/col’|no|0| |
-|timestamp  |text       |timestamp value in ISO 8601format as defined by the strftime function `'%Y-%m-%dT%H:%M:%fZ'` format string applied to the current time|no|`strftime('%Y-%m-%dT%H:%M:%fZ', CURRENT_TIMESTAMP)`| |
+|timestamp  |text       |timestamp value in ISO 8601format as defined by the strftime function `'%Y-%m-%dT%H:%M:%fZ'` format string applied to the current time|no|`strftime` `('%Y-%m-%dT%H:%M:%fZ',` ` CURRENT_TIMESTAMP)`| |
 |md_file_id |int        |`xml_metadata` table id column value for the metadata to which this metadata_reference applies|no|0|FK|
 |md_parent_id|int       |`xml_metadata` table id column value for the hierarchical parent metadata for the metadata to which this `metadata_reference` applies|no|0|FK|
 
