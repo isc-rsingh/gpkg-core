@@ -85,9 +85,9 @@ A table or updateable view named `spatial_ref_sys` is the first component of the
 The `spatial_ref_sys` table includes at a minimum the columns specified in OGC 06-104r4 [13] section 7.1.2.2 containing data that defines spatial reference systems.  This table or view may include additional columns to meet the requirements of implementation software or other specifications. 
 This table SHALL contain:
 - a record with an `auth_name` value of "EPSG" or "epsg" and `auth_srid` value of "4326" [17][18] for WGS-84 [19]
-- a record with an `auth_name` value of "NONE" and `auth_srid` value of "-1", and srtext “undefined” for undefined Cartesian coordinate reference systems
-- and a record with an `auth_name` value of "NONE" and `auth_srid` value of "0", and srtext “undefined” for undefined *Cartesian* coordinate reference systems
-- and a record with an SRID of 0, an auth_name of “NONE”, an auth_srid of  0, and srtext “undefined” for undefined *geographic* coordinate reference systems.
+- a record with an `auth_name` value of "NONE" and `auth_srid` value of "-1", and `srtext` “undefined” for undefined Cartesian coordinate reference systems
+- and a record with an `auth_name` value of "NONE" and `auth_srid` value of "0", and `srtext` “undefined” for undefined *Cartesian* coordinate reference systems
+- and a record with an SRID of 0, an auth_name of “NONE”, an auth_srid of  0, and `srtext` “undefined” for undefined *geographic* coordinate reference systems.
 
 It SHALL also contain records to define all other spatial reference systems used by the features, rasters and tiles in the GeoPackage.  It is recommended that it contain records for all coordinate reference systems in the latest EPSG database [B3] when storage space permits.
 
