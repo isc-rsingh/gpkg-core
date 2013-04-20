@@ -7,11 +7,11 @@ NOTE: Grouping and dependency relationships of conformance classes for clause 6 
 
 ## 6 File Format
 
-The GeoPackage file format SHALL be an SQLite [9] database file with the version 3 file format [10][11]. A GeoPackage file shall be named with a ".geopackage" extension to enable operating system level handlers to determine that it is a GeoPackage without opening it. 
+The GeoPackage file format SHALL be an SQLite [9] database file with the version 3 file format [10][11]. A GeoPackage file shall be named with a `.geopackage` extension to enable operating system level handlers to determine that it is a GeoPackage without opening it. 
 
 NOTE1: SQLite has been used as the base for a number of vector, raster and tile storage specifications, and commercial and open-source implementations. It is deployed and supported by Google on Android [B1] and Apple on IOS [B2] mobile devices.  Testing on a laptop indicates that its performance scales well for databases in excess of 200GB containing vector and raster tables of more than 4 million rows.  
 
-The maximum size of a GeoPackage? file is about 140TB. In practice a lower size limit may be imposed by the filesystem to which the file is written. Many mobile devices require external memory cards to be formatted using the FAT32 file system which imposes a maximum size limit of 4GB
+The maximum size of a GeoPackage file is about 140TB. In practice a lower size limit may be imposed by the filesystem to which the file is written. Many mobile devices require external memory cards to be formatted using the FAT32 file system which imposes a maximum size limit of 4GB
 
 |Requirement|Core|
 |-----------|----|
@@ -21,7 +21,7 @@ The maximum size of a GeoPackage? file is about 140TB. In practice a lower size 
 |Requirement|Core|
 |-----------|----|
 |URI        |http://www.opengis.net/spec/GPKG/1.0/req/core/file_format_extension|
-|REQ 2.     |The GeoPackage file name SHALL have a .geopackage extension|
+|REQ 2.     |The GeoPackage file name SHALL have a `.geopackage` extension|
 
 ## 7 Data Format
 
@@ -36,9 +36,9 @@ This document does not specify a data format. However, for a GeoPackage to be us
 
 ### 8.1 GeoPackage Contents Table
 
-The purpose of the GeoPackage geopackage_contents table is to provide identifying and descriptive information that an application can display to a user in a menu of geospatial data that is available for access and/or update.
+The purpose of the GeoPackage `geopackage_contents` table is to provide identifying and descriptive information that an application can display to a user in a menu of geospatial data that is available for access and/or update.
 
-A GeoPackage SHALL contain a geopackage_contents table or view as defined in this clause. The geopackage_contents table or view SHALL contain one row record for each tile table, raster table and vector features table [change this to "geospatial data table"?] in the GeoPackage.  The geopackage_contents table or view SHALL NOT contain row records for any other type of table in a GeoPackage (see clause 6.3.4.4 below).
+A GeoPackage SHALL contain a `geopackage_contents` table or view as defined in this clause. The geopackage_contents table or view SHALL contain one row record for each tile table, raster table and vector features table [change this to "geospatial data table"?] in the GeoPackage.  The geopackage_contents table or view SHALL NOT contain row records for any other type of table in a GeoPackage (see clause 6.3.4.4 below).
 
 |Requirement|Core|
 |-----------|----|
@@ -46,18 +46,19 @@ A GeoPackage SHALL contain a geopackage_contents table or view as defined in thi
 |REQ 4.     |The `geopackage_contents` table or view SHALL be named geopackage_contents|
 
 **Table 2** - Geopackage `geopackage_contents` Table or View Definition
+
 |Column Name|Column Type|Column Description|Null|Default|Key|
 |-----------|-----------|------------------|----|-------|---|
 |table_name |text       |The name of the tiles, raster or feature table|no| |PK|
 |data_type  |text       |Type of data stored in the table. Must be one of features, featuresWithRasters, rasters or tiles|no| | |
 |identifier |text       |A human-readable identifier (i.e. short name) for the table_name|no| | |
 |description|text       |A human-readable description for the table_name|no|""| |
-last_change |text       |timestamp value in ISO 8601 format as defined by the strftime function '%Y-%m-%dT%H:%M:%fZ' format string applied to the current time|no|strftime('%Y-%m-%dT%H:%M:%fZ', CURRENT_TIMESTAMP)| |
-min_x       |double     |Bounding box for all content in table_name|no|-180.0| |
-min_y       |double     |Bounding box for all content in table_name|no|-90.0| |
-max_x       |double     |Bounding box for all content in table_name|no|180.0| |
-max_y       |double     |Bounding box for all content in table_name|no|90.0| |
-srid        |integer    |Spatial Reference System ID: spatial_ref_sys.srid|no|0|FK|
+|last_change |text       |timestamp value in ISO 8601 format as defined by the strftime function '%Y-%m-%dT%H:%M:%fZ' format string applied to the current time|no|strftime('%Y-%m-%dT%H:%M:%fZ', CURRENT_TIMESTAMP)| |
+|min_x       |double     |Bounding box for all content in table_name|no|-180.0| |
+|min_y       |double     |Bounding box for all content in table_name|no|-90.0| |
+|max_x       |double     |Bounding box for all content in table_name|no|180.0| |
+|max_y       |double     |Bounding box for all content in table_name|no|90.0| |
+|srid        |integer    |Spatial Reference System ID: spatial_ref_sys.srid|no|0|FK|
 
 The `geopackage_contents` table is intended to provide a list of all geospatial data sets in the GeoPackage. The `data_type` specifies the type of content. The bounding box (`min_x`, `min_y`, `max_x`, `max_y`) provides an informative bounding box (not necessarily minimum bounding box) of the data set.  If the `srid` column value references a *geographic* coordinate reference system (CRS), then the min/max x/y values are in decimal degrees; otherwise, the srid references a *projected* CRS and the min/max x/y values are in the units specified by that CRS.
 
