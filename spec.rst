@@ -84,6 +84,7 @@ NOTE1: the "0" default value for the srid column is for an undefined geographic 
 Values of the `geopackage_contents` table or view `last_change` column SHALL be in ISO 8601 format containing a complete date plus UTC hours, minutes, seconds and a decimal fraction of a second, with a ‘Z’ (‘zulu’) suffix indicating UTC.
 
 NOTE2: The following statement selects such a timestamp value:
+
 .. code:: sql
 	SELECT (strftime('%Y-%m-%dT%H:%M:%fZ','now')).
 
