@@ -5,11 +5,11 @@ A self-contained, single-file, cross-platform, serverless, transactional, open s
 The mandatory core capabilities defined in sub clauses and requirement statements of this clause SHALL be implemented by every GeoPackage.
 NOTE: Grouping and dependency relationships of conformance classes for clause 6 and 7 requirements are shown in Figure 3 in Annex A clause A.2.
 
-## 6 File Format
+## 1 File Format
 
-The GeoPackage file format SHALL be an SQLite [9] database file with the version 3 file format [10][11]. A GeoPackage file shall be named with a `.geopackage` extension to enable operating system level handlers to determine that it is a GeoPackage without opening it. 
+The GeoPackage file format SHALL be an SQLite [9] database file with the version 3 file format [[10]] (#norm_ref_10) [[11]] (#norm_ref_11). A GeoPackage file shall be named with a `.geopackage` extension to enable operating system level handlers to determine that it is a GeoPackage without opening it. 
 
-> NOTE: SQLite has been used as the base for a number of vector, raster and tile storage specifications, and commercial and open-source implementations. It is deployed and supported by Google on Android [B1] and Apple on IOS [B2] mobile devices.  Testing on a laptop indicates that its performance scales well for databases in excess of 200GB containing vector and raster tables of more than 4 million rows.  
+> NOTE: SQLite has been used as the base for a number of vector, raster and tile storage specifications, and commercial and open-source implementations. It is deployed and supported by [Google on Android] (#B1) and [Apple on IOS] (#B2) mobile devices.  Testing on a laptop indicates that its performance scales well for databases in excess of 200GB containing vector and raster tables of more than 4 million rows.  
 
 The maximum size of a GeoPackage file is about 140TB. In practice a lower size limit may be imposed by the filesystem to which the file is written. Many mobile devices require external memory cards to be formatted using the FAT32 file system which imposes a maximum size limit of 4GB
 
@@ -23,7 +23,7 @@ The maximum size of a GeoPackage file is about 140TB. In practice a lower size l
 |URI        |http://www.opengis.net/spec/GPKG/1.0/req/core/file_format_extension|
 |REQ 2.     |The GeoPackage file name SHALL have a `.geopackage` extension|
 
-## 7 Data Format
+## 2 Data Format
 
 This document does not specify a data format. However, for a GeoPackage to be useful it must contain data. Therefore, Every implementation SHALL implement at least one of the GeoPackage data format extensions. 
 
@@ -32,9 +32,9 @@ This document does not specify a data format. However, for a GeoPackage to be us
 |URI        |http://www.opengis.net/spec/GPKG/1.0/req/core/data_format|
 |REQ 3.     |Implementation of this core specification is not sufficient to create a valid GeoPackage|
 
-## 8 Global Tables
+## 3 Global Tables
 
-### 8.1 GeoPackage Contents Table
+### 3.1 GeoPackage Contents Table
 
 The purpose of the GeoPackage `geopackage_contents` table is to provide identifying and descriptive information that an application can display to a user in a menu of geospatial data that is available for access and/or update.
 
@@ -45,7 +45,7 @@ A GeoPackage SHALL contain a `geopackage_contents` table or view as defined in t
 |URI        |http://www.opengis.net/spec/GPKG/1.0/req/core/geopackage_contents_table_file_name|
 |REQ 4.     |The `geopackage_contents` table or view SHALL be named geopackage_contents|
 
-**Table 2** - Geopackage `geopackage_contents` Table or View Definition
+**Table 3-1** - Geopackage `geopackage_contents` Table or View Definition
 
 |Column Name|Column Type|Column Description|Null|Default|Key|
 |-----------|-----------|------------------|----|-------|---|
@@ -78,7 +78,7 @@ See Annex B: Table Definition SQL clause B.1 geopackage_contents.
 |URI        |http://www.opengis.net/spec/GPKG/1.0/req/core/geopackage_contents_table_schema|
 |REQ 5.     |A GeoPackage SHALL include a `geopackage_contents` table or updateable view with columns and constraints defined in **Table 2**|
 
-### 8.2 Spatial Reference Systems Table
+### 3.2 Spatial Reference Systems Table
 
 A table or updateable view named `spatial_ref_sys` is the first component of the standard SQL schema for simple features described in clause 8.3.1 below. The coordinate reference system definitions it contains are referenced by the GeoPackage's `geopackage_contents`, `geometry_columns` and `raster_columns` tables to relate the vector, raster, and tile data in user tables to locations on the earth.
 
@@ -111,13 +111,13 @@ See Annex B: Table Definition SQL clause B.2 `spatial_ref_sys`.
 |URI        |http://www.opengis.net/spec/GPKG/1.0/req/core/vector_features/spatial_ref_sys_table|
 |REQ 6.     |A GeoPackage SHALL include a spatial_ref_sys table or updateable view with at a minimum the columns defined in **Table 3**|
 
-### 8.3 Manifest Table
+### 3.3 Manifest Table
 
-#### 8.3.1 Introduction
+#### 3.3.1 Introduction
 
 The GeoPackage manifest serves as an extended table of contents and a data source access metadata store for the GeoPackage data container. It is intended to provide a standard interface between GeoPackage contents and OGC and otherWeb Services that have provided the content in a GeoPackage, or that in the future may use GeoPackages as an input or output format.  The GeoPackage manifest will facilitate two-way geosynchronization of GeoPackage contents with other data stores via web services.  GeoPackage manifest metadata may also be used to provide identifying and coverage area information for a GeoPackage and for the GeoPackages with data for adjacent areas.
 
-#### 8.3.2 Manifest Content Model and Table Definition
+#### 3.3.2 Manifest Content Model and Table Definition
 
 A GeoPackage manifest is represented by a single XML document. The canonical GeoPackage manifest content model is an extension of the ATOM [45] encoding of the OGC® OWS Context (OWC) Document Conceptual Model [46].  Other XML document content models may also be used, but only one manifest XML document may be provided per content model. 
 
@@ -137,7 +137,7 @@ See Annex B: Table Definition SQL clause B.3 manifest.
 |URI        |http://www.opengis.net/spec/GPKG/1.0/req/core/manifest/manifest_table|
 |REQ 7.     |There SHALL be a manifest table in a GeoPackage as defined in **Table 4**|
 
-#### 8.3.3 Manifest XML Schema
+#### 3.3.3 Manifest XML Schema
 
 The GeoPackage manifest is defined in the `geoPackageContext.xsd` XML schema document shown in table xx below as an extension of the OGC Context document Atom Encoding defined in [http://schemas.opengis.net/owc/1.0/OWSContextCore.xsd](http://schemas.opengis.net/owc/1.0/OWSContextCore.xsd) by 12-084 OWS Context Atom Encoding [47].  The Manifest for a GeoPackage is encoded as an atom:feed element that contains elements describing the GeoPackage itself and GeoPackages for adjacent areas, and atom:entry elements which describe the contents and optionally the source of data in GeoPackage container tables.  The `geoPackageContext.xsd` XML schema defines elements and attributes that are used to extend those of Atom and OWS Context. See the documentation elements in the schema in table xx for descriptions of these elements and attributes. Their use in a manifest document is discussed in the next section.
 
@@ -148,19 +148,19 @@ The http://www.opengis.net/gpkg/1.0 namespace will be proposed to the OGC Naming
 |URI        |http://www.opengis.net/spec/GPKG/1.0/req/core/manifest/manifest_table/owc_content/xml|
 |REQ 8.     |The manifest table in a GeoPackage SHALL contain a record with an “OWC” id value and XML-encoded manifest data that is schema-valid in accordance with the OWC GeoPackage Manifest content model as specified by `atom.xsd`, `OWSContextCore.xsd` and `geoPackageContext.xsd`.|
 
-#### 8.3.4 Manifest Schematron Schema
+#### 3.3.4 Manifest Schematron Schema
 
 |Requirement|Core|
 |-----------|----|
 |URI        |http://www.opengis.net/spec/GPKG/1.0/req/core/manifest/manifest_table/owc_content/schematron|
 |REQ 9.     |The manifest table in a GeoPackage SHALL contain a record with an “OWC” id value and XML-encoded manifest data that is schema-valid in accordance with the `geoPackageContext.sch` Schematron schema.|
 
-#### 8.3.5 Sample Manifest XML Document
+#### 3.3.5 Sample Manifest XML Document
 A sample manifest XML document and description of its content is provided in Annex H.
 
-### 8.4 Metadata Tables
+### 3.4 Metadata Tables
 
-#### 8.4.1 Introduction
+#### 3.4.1 Introduction
 
 Two tables in a GeoPackage provide a means of storing metadata in the form of XML documents that are defined in accordance with any authoritative metadata specifications, and relating it to the features, rasters, and tiles data in a GeoPackage. These tables are intended to provide the support necessary to implement the hierarchical metadata model defined in ISO 19115 [42], Annex B B.5.25 MD_ScopeCode, Annex G and Annex H, so that as GeoPackage data is captured and updated, the most local and specific detailed metadata changes associated with the new or modified data may be captured separately, and referenced to existing global and general metadata.
 
@@ -190,7 +190,7 @@ These tables SHALL be defined in every GeoPackage. However, they may contain 0 r
 
 > NOTE: Informative examples of hierarchical metadata are provided in Annex J.
 
-#### 8.4.2 XML Metadata Table
+#### 3.4.2 XML Metadata Table
 
 [BREAK THIS OUT INTO A METADATA EXTENSION?]
 
@@ -243,7 +243,7 @@ A GeoPackage SHALL have an `xml_metadata` table.
 The `xml_metadata` table SHALL contain at least the row defined by the SQL insert statement show in Table 49.
 See Annex B: Table Definition SQL clause B.4 `xml_metadata`.
 
-#### 8.4.3 Metadata Reference Table
+#### 3.4.3 Metadata Reference Table
 
 The second component of GeoPackage metadata is the `metadata_reference` table or view that links metadata in the `xml_metadata` table to data in the feature, raster, and tiles tables.
 
@@ -276,3 +276,403 @@ SELECT (strftime('%Y-%m-%dT%H:%M:%fZ','now')).
 
 See Annex B: Table Definition SQL clause B.5 metadata_reference.
 
+## Annex A: Normative references
+
+The following normative documents contain provisions which, through reference in this text, constitute provisions of this part of OGC 12-128 For dated references, subsequent amendments to, or revisions of, any of these publications do not apply. However, parties to agreements based on this part of OGC 12-128 are encouraged to investigate the possibility of applying the most recent editions of the normative documents indicated below. For undated references, the latest edition of the normative document referred to applies.
+
+###[norm_ref_1] 
+ ISO 19105: Geographic information — Conformance and Testing
+
+###[norm_ref_2] 
+ ISO/IEC 9075:1992 Information Technology - Database Language SQL (SQL92)
+
+###[norm_ref_3] 
+ ISO/IEC 9075-1:2011 Information Technology - Database Language SQL - Part 1: Framework
+
+###[norm_ref_4] 
+ ISO/IEC 9075-2:2011 Information Technology - Database Language SQL - Part 2: Foundation
+
+###[norm_ref_5] 
+ ISO/IEC 9075-3:2008 Information Technology - Database Language SQL - Part 3: Call-Level Interface (SQL/CLI)
+
+###[norm_ref_6] 
+ ISO/IEC 9075-4:2011 Information Technology - Database Language SQL - Part 4: Persistent Stored Modules (SQL/PSM)
+
+###[norm_ref_7] 
+ ISO/IEC 9075-10:2008 Information Technology - Database Language SQL – Part 	10: 	Object Language Bindings (SQL/OLB) 
+
+###[norm_ref_8] 
+ JDBC™ 3.0 Specification, Final Release, John Ellis & Linda Ho with Maydene Fisher, Sun Microsystems, Inc., October, 2001.
+
+###[norm_ref_9] 
+ SQLite (all parts) http://www.sqlite.org/ (online) http://www.sqlite.org/sqlite-doc-3071300.zip (offline)
+
+###[norm_ref_10] 
+ http://sqlite.org/fileformat2.html 
+
+###[norm_ref_11] 
+ http://www.sqlite.org/formatchng.html
+
+###[norm_ref_12] 
+ http://www.sqlite.org/download.html
+
+###[norm_ref_13] 
+ OGC 06-103r4 OpenGIS® Implementation Standard for Geographic information - Simple feature access - Part 1: Common architecture 	 Version: 1.2.1 2011-05-28	http://portal.opengeospatial.org/files/?artifact_id=25355 	(also ISO/TC211 19125 Part 1)
+
+###[norm_ref_14] 
+ OGC 06-104r4 OpenGIS® Implementation Standard for Geographic information - Simple feature access - Part 2: SQL option   Version: 1.2.1 2010-08-04	http://portal.opengeospatial.org/files/?artifact_id=25354 	(also ISO/TC211 19125 Part 2)
+
+###[norm_ref_15] 
+ OGC 99-049 OpenGIS® Simple Features Specification for SQL Revision 1.1 	May 5, 1999, Clause 2.3.8  http://portal.opengeospatial.org/files/?artifact_id=829 
+
+###[norm_ref_16] 
+ ISO/IEC 13249-3:2011 Information technology — SQL Multimedia and Application 	Packages - Part 3: Spatial (SQL/MM)
+
+###[norm_ref_17] 
+ http://www.epsg.org/Geodetic.html
+
+###[norm_ref_18] 
+ http://www.epsg-registry.org/
+
+###[norm_ref_19] 
+ MIL_STD_2401 DoD World Geodetic System 84 (WGS84), 11 January 1994 
+
+###[norm_ref_20] 
+ https://www.gaia-gis.it/fossil/libspatialite/index 
+
+###[norm_ref_21] 
+ http://www.gaia-gis.it/gaia-sins/BLOB-Geometry.html 
+
+###[norm_ref_22] 
+ OGC 07-057r7 OpenGIS® Web Map Tile Service Implementation Standard Version 1.0.0  2010-04-06 (WMTS)	http://portal.opengeospatial.org/files/?artifact_id=35326
+
+###[norm_ref_23] 
+ ITU-T Recommendation T.81 (09/92) with Corrigendum (JPEG)
+
+###[norm_ref_24] 
+ JPEG File Interchange Format Version 1.02, September 1, 1992   http://www.jpeg.org/public/jfif.pdf 
+
+###[norm_ref_25] 
+ IETF RFC 2046 Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types http://www.ietf.org/rfc/rfc2046.txt 
+
+###[norm_ref_26] 
+ Portable Network Graphics http://libpng.org/pub/png/
+
+###[norm_ref_27] 
+ MIME Media Types http://www.iana.org/assignments/media-types/index.html 
+
+###[norm_ref_28] 
+ WebP  https://developers.google.com/speed/webp/
+
+###[norm_ref_29] 
+ TIFF – Tagged Image File Format, Revision 6.0, Adobe Systems Inc., June 1992   		http://partners.adobe.com/public/developer/en/tiff/TIFF6.pdf 
+
+###[norm_ref_30] 
+ GeoTIFF Format Specification, Revision 1.0, 10 November 1995; version 1.8.2  http://www.remotesensing.org/geotiff/spec/geotiffhome.html 
+
+###[norm_ref_31] 
+ NGA Standardization Document: Implementation Profile for Tagged Image File Format (TIFF) and Geographic Tagged Image File Format (GeoTIFF), Version 2.0,  2001-10-26  https://nsgreg.nga.mil/doc/view?i=2224  
+
+###[norm_ref_32] 
+ IETF RFC 3986 Uniform Resource Identifier (URI): Generic Syntax http://www.ietf.org/rfc/rfc3986.txt 
+
+###[norm_ref_33] 
+ OGC08-131r3 The Specification Model — A Standard for Modular specifications  https://portal.opengeospatial.org/files/?artifact_id=34762 
+
+###[norm_ref_34] 
+ OGC10-103 Name type specification - specification elements  http://portal.opengeospatial.org/files/?artifact_id=39194 
+
+###[norm_ref_35] 
+ W3C Recommendation 26 November 2008 Extensible Markup Language (XML) 1.0 (Fifth Edition) http://www.w3.org/TR/xml/ 
+
+###[norm_ref_36] 
+ W3C Recommendation 8 December 2009 Namespaces in XML 1.0 (Third Edition) http://www.w3.org/TR/REC-xml-names/ 
+
+###[norm_ref_37] 
+ W3C Recommendation 28 January 2009 XML Base (Second Edition) http://www.w3.org/TR/xmlbase/ 
+
+###[norm_ref_38] 
+ W3C Recommendation 06 May 2010 XML Linking Language (XLink) Version 1.1 http://www.w3.org/TR/xlink11/ 
+
+###[norm_ref_39] 
+ W3C Recommendation 28 October 2004 XML Schema Part 0: Primer Second Edition http://www.w3.org/TR/xmlschema-0/ 
+
+###[norm_ref_40] 
+ W3C Recommendation 28 October 2004 XML Schema Part 1: Structures Second Edition http://www.w3.org/TR/xmlschema-1/ 
+
+###[norm_ref_41] 
+ W3C Recommendation 28 October 2004 XML Schema Part 2: Datatypes Second Edition http://www.w3.org/TR/xmlschema-2/
+
+###[norm_ref_42] 
+ ISO 19115 Geographic information -- Metadata, 8 May 2003, with Technical Corrigendum 1, 5 July 2006
+
+###[norm_ref_43] 
+ISO 8601 Representation of dates and times http://www.iso.org/iso/catalogue_detail?csnumber=40874 
+
+###[norm_ref_44] 
+OGC® 10-100r3 Geography Markup Language (GML) simple features profile (with technical note) http://portal.opengeospatial.org/files/?artifact_id=42729 
+
+###[norm_ref_45] 
+Atom Syndication Format - IETF RFC 4287  http://tools.ietf.org/html/rfc4287 
+
+###[norm_ref_46] 
+OGC® OWS Context Document Conceptual Model 
+12-080 OWS Context Conceptual Model https://portal.opengeospatial.org/wiki/OWSContextswg/ConceptualModelHome 
+
+###[norm_ref_47] 
+OGC® OWS Context Atom Encoding
+12-084 OWS Context Atom Encoding
+https://portal.opengeospatial.org/wiki/OWS9/GeoPackageOWSContext 
+
+## Annex B: Terms and definitions
+
+For the purposes of this document, the following terms and definitions apply. ### 4.1	**geolocate**identify a real-world geographic location
+### 4.2	**georectified**
+raster whose pixels have been regularly spaced in a geographic (i.e., latitude / longitude) or projected map coordinate system using ground control points so that any pixel can be geolocated given its grid coordinate and the grid origin, cell spacing, and orientation.
+### 4.3
+**orthorectified**
+georectified raster that has also been corrected to remove image perspective (camera angle tilt), camera and lens induced distortions, and terrain induced distortions using camera calibration parameters and DEM elevation data to accurately align with real world coordinates, have constant scale, and support direct measurement of distances, angles, and areas.
+### Annex C: Conventions
+#### C.1 Symbols (and abbreviated terms)
+
+Some frequently used abbreviated terms:
+
+ACID: Atomic, Consistent, Isolated, and Durable
+
+ASCII: American Standard Code for Information Interchange
+
+API: Application Program Interface
+
+ATOM: Atom Syndication Format
+
+BLOB: Binary Large OBject
+
+CLI: Call-Level Interface
+
+COTS: Commercial Off The Shelf
+
+DEM: Digital Elevation Model
+
+DIGEST: Digital Geographic Information Exchange Standard
+
+GeoTIFF: Geographic Tagged Image File Format
+
+GPKG: GeoPackage
+
+GRD: Ground Resolved Distance
+
+EPSG: European Petroleum Survey Group
+
+FK: Foreign Key
+
+IETF: Internet Engineering Task Force
+
+IIRS: Image Interpretability Rating Scale
+
+IRARS: Imagery Resolution Assessments and Reporting Standards (Committee)
+
+ISO: International Organization for Standardization
+
+JDBC: Java Data Base Connectivity
+
+JPEG: Joint Photographics Expert Group (image format)
+
+MIME: Multipurpose Internet Mail Extensions
+
+NATO: North Atlantic Treaty Organization
+
+NITF: National Imagery Transmission Format
+
+OGC: Open Geospatial Consortium
+
+PK: Primary Key
+
+PNG: Portable Network Graphics (image format)
+
+RDBMS: Relational Data Base Management System
+
+RFC: Request For Comments
+
+SQL: Structured Query Language
+
+SRID: Spatial Reference (System) Identifier
+
+TIFF: Tagged Image File Format
+
+TIN: Triangulated Irregular Network
+
+UML: Unified Modeling Language
+
+UTC: Coordinated Universal Time
+
+XML: eXtensible Markup Language
+
+1D: One Dimensional
+
+2D: Two Dimensional
+
+3D: Three Dimensional
+
+#### C.2 UML Notation
+
+
+### Footnotes
+####[1]
+
+### Bibliography (informative)
+
+###[B1] 
+http://developer.android.com/guide/topics/data/data-storage.html#db
+
+###[B2] 
+https://developer.apple.com/technologies/ios/data-management.html 
+
+###[B3] 
+http://www.epsg.org/guides/docs/G7-1.pdf 
+
+###[B4] 
+http://www.gdal.org/ogr/ 
+
+###[B5] 
+http://www.gdal.org/ogr/drv_sqlite.html 
+
+###[B6] 
+http://trac.osgeo.org/geos/wiki/Applications 
+
+###[B7] 
+http://www.qgis.org/ 
+
+###[B8] 
+http://hub.qgis.org/projects/android-qgis 
+
+###[B9] 
+http://www.luciad.com/products/LuciadMobile  
+
+###[B10] 
+http://www.falconview.org/trac/FalconView/downloads/26 
+
+###[B11] 
+http://wiki.openstreetmap.org/wiki/TMS 
+
+###[B12] 
+https://github.com/mapbox/mbtiles-spec 
+
+###[B13] 
+https://www.gaia-gis.it/fossil/librasterlite/index
+
+###[B14] 
+http://wiki.openstreetmap.org/wiki/Main_Page 
+
+###[B15] 
+http://code.google.com/p/osmdroid/ 
+
+###[B16] 
+http://www.falconview.org/trac/FalconView 
+
+###[B17] 
+http://code.google.com/p/big-planet-tracks/ 
+
+###[B18] 
+http://en.wikipedia.org/wiki/ASCII 
+
+###[B19] 
+“SQL for Smarties: Advanced SQL Programming”  Joe Selko, Morgan Kaufmann, 1995, ISBN 1-55860-323-9
+
+###[B20] 
+NATO IIRS STANAG, NATO Imagery Interpretability Rating Scale (NIIRS)  STANAG 7194 Edition 1 2009
+
+https://nsgreg.nga.mil/doc/view?i=2129 
+
+###[B21] 
+U.S. National Image Interpretability Rating Scales  http://www.fas.org/irp/imint/niirs.htm 
+
+###[B22] 
+Civil NIIRS http://www.fas.org/irp/imint/niirs_c/index.html 
+
+###[B23] 
+Civil NIIRS Reference Guide http://www.fas.org/irp/imint/niirs_c/guide.htm 
+
+###[B24] 
+Additional Civil NIIRS Criteria http://www.fas.org/irp/imint/niirs_c/app2.htm 
+
+###[B25] 
+Sample Civil NIIRS Images http://www.fas.org/irp/imint/niirs_c/append.htm 
+
+###[B26] 
+History of NIIRS http://www.fas.org/irp/imint/niirs_c/app3.htm 
+
+###[B27] 
+http://www.ucgis.org/priorities/research/research_white/1998%20Papers/data.html 
+
+###[B28] 
+http://www.gdal.org/frmt_rasterlite.html 
+
+###[B29] 
+https://www.gaia-gis.it/fossil/libspatialite/wiki?name=switching-to-4.0 
+
+###[B30] 
+http://www.sqlite.org/lang_createtable.html#rowid 
+
+###[B31] 
+ISO 19115-2 Geographic information - - Metadata - Part 2: Metadata for imagery and gridded data
+
+###[B32] 
+ISO 19139: Geographic information -- Metadata -- XML schema implementation
+
+###[B33] 
+Dublin Core Metadata Initiative http://dublincore.org/  IETF RFC 5013
+ISO 15836:2009  http://www.iso.org/iso/home/store/catalogue_tc/catalogue_detail.htm?csnumber=52142 
+
+
+
+###[B34] 
+Content Standard for Digital Geospatial Metadata (CSDGM)
+	http://www.fgdc.gov/standards/projects/FGDC-standards-projects/metadata/base-metadata/index_html 
+
+###[B35] 
+Department of Defense Discovery Metadata Specification (DDMS) http://metadata.ces.mil/mdr/irs/DDMS/ 
+
+###[B36] 
+NMF NGA.STND.0012_2.0 /  NMIS NGA.STND.0018_1.0
+
+###[B37] 
+Unified Modeling Language (UML) http://www.uml.org/ 
+
+###[B38] 
+XML for Metadata Interchange (XMI) http://www.omg.org/spec/XMI/ 
+
+###[B39] 
+Geography Markup Language (GML) ISO 19136:2007
+
+###[B40] 
+ISO 19110 Geographic information – Methodology for feature cataloguing
+
+###[B41] 
+Web Ontology Language (OWL) http://www.w3.org/TR/2009/REC-owl2-xml-serialization-20091027/ 
+
+###[B42] 
+Simple Knowledge Organization System (SKOS) http://www.w3.org/TR/skos-reference/ 
+
+###[B43] 
+MIL-STD-2500C DoD Interface Standard: National Imagery Transmission Format  (NITF)
+	https://nsgreg.nga.mil/NSGDOC/files/doc/Document/MIL-STD-2500C.pdf  
+
+###[B44] 
+STANAG 7074 Digital Geographic Information Exchange Standard (DIGEST) - AGeoP-3A, edition 1, 19 October 1994	http://www.dgiwg.org/dgiwg/htm/documents/historical_documents.htm 
+
+###[B45] 
+ISO 19109 Geographic information - Rules for application schema
+
+###[B46] 
+http://www.sqlite.org/changes.html 
+
+###[B47] 
+http://sqlite.org/src4/doc/trunk/www/design.wiki
+
+###[B48]
+http://trac.osgeo.org/geos/ 
+
+###[B49]
+http://trac.osgeo.org/proj 
+
+
