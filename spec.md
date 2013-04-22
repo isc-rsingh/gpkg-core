@@ -9,7 +9,7 @@ NOTE: Grouping and dependency relationships of conformance classes for clause 6 
 
 The GeoPackage file format SHALL be an SQLite [9] database file with the version 3 file format [[10]] (#norm_ref_10) [[11]] (#norm_ref_11). A GeoPackage file shall be named with a `.geopackage` extension to enable operating system level handlers to determine that it is a GeoPackage without opening it. 
 
-> NOTE: SQLite has been used as the base for a number of vector, raster and tile storage specifications, and commercial and open-source implementations. It is deployed and supported by [Google on Android] (#B1) and [Apple on IOS] (#B2) mobile devices.  Testing on a laptop indicates that its performance scales well for databases in excess of 200GB containing vector and raster tables of more than 4 million rows.  
+> NOTE: SQLite has been used as the base for a number of vector, raster and tile storage specifications, and commercial and open-source implementations. It is deployed and supported by [Google on Android] (#b1) and [Apple on IOS] (#b2) mobile devices.  Testing on a laptop indicates that its performance scales well for databases in excess of 200GB containing vector and raster tables of more than 4 million rows.  
 
 The maximum size of a GeoPackage file is about 140TB. In practice a lower size limit may be imposed by the filesystem to which the file is written. Many mobile devices require external memory cards to be formatted using the FAT32 file system which imposes a maximum size limit of 4GB
 
