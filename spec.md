@@ -82,9 +82,9 @@ See Annex B: Table Definition SQL clause B.1 geopackage_contents.
 
 A table or updateable view named `spatial_ref_sys` is the first component of the standard SQL schema for simple features described in clause 8.3.1 below. The coordinate reference system definitions it contains are referenced by the GeoPackage's `geopackage_contents`, `geometry_columns` and `raster_columns` tables to relate the vector, raster, and tile data in user tables to locations on the earth.
 
-The `spatial_ref_sys` table includes at a minimum the columns specified in OGC 06-104r4 [13] section 7.1.2.2 containing data that defines spatial reference systems.  This table or view may include additional columns to meet the requirements of implementation software or other specifications. 
+The `spatial_ref_sys` table includes at a minimum the columns specified in [OGC 06-104r4] (#norm_ref_13) section 7.1.2.2 containing data that defines spatial reference systems.  This table or view may include additional columns to meet the requirements of implementation software or other specifications. 
 This table SHALL contain:
-- a record with an `auth_name` value of "EPSG" or "epsg" and `auth_srid` value of "4326" [17][18] for WGS-84 [19]
+- a record with an `auth_name` value of "EPSG" or "epsg" and `auth_srid` value of ["4326"] (#norm_ref_17) [and] (#norm_ref_18) for [WGS-84] (#norm_ref_19)
 - a record with an `auth_name` value of "NONE" and `auth_srid` value of "-1", and `srtext` “undefined” for undefined Cartesian coordinate reference systems
 - and a record with an `auth_name` value of "NONE" and `auth_srid` value of "0", and `srtext` “undefined” for undefined *Cartesian* coordinate reference systems
 - and a record with an SRID of 0, an auth_name of “NONE”, an auth_srid of  0, and `srtext` “undefined” for undefined *geographic* coordinate reference systems.
@@ -93,9 +93,9 @@ It SHALL also contain records to define all other spatial reference systems used
 
 In OGC 06-104r4 [INSTEAD OF OGC DOC #S HOW ABOUT SHORT NAMES THAT REFERENCE THE STANDARD, E.G. SFSQL] only the primary key column of this table is defined to be NOT NULL.  In a GeoPackage, all columns in this table or updateable view SHALL be defined to be NOT NULL.
 
-> NOTE:  See [B19] chapter 6 for a discussion of NULL column values.
+> NOTE:  See [B19] (#b19) chapter 6 for a discussion of NULL column values.
 
-**Table 3** - `spatial_ref_sys` Table or View Definition
+**Table 3-2** - `spatial_ref_sys` Table or View Definition
 
 |Column Name|Column Type|Column Description|Key|
 |-----------|-----------|------------------|---|
@@ -109,7 +109,7 @@ See Annex B: Table Definition SQL clause B.2 `spatial_ref_sys`.
 |Requirement|Core|
 |-----------|----|
 |URI        |http://www.opengis.net/spec/GPKG/1.0/req/core/vector_features/spatial_ref_sys_table|
-|REQ 6.     |A GeoPackage SHALL include a spatial_ref_sys table or updateable view with at a minimum the columns defined in **Table 3**|
+|REQ 6.     |A GeoPackage SHALL include a spatial_ref_sys table or updateable view with at a minimum the columns defined in **Table 3-2**|
 
 ### 3.3 Manifest Table
 
@@ -119,11 +119,9 @@ The GeoPackage manifest serves as an extended table of contents and a data sourc
 
 #### 3.3.2 Manifest Content Model and Table Definition
 
-A GeoPackage manifest is represented by a single XML document. The canonical GeoPackage manifest content model is an extension of the ATOM [45] encoding of the OGC® OWS Context (OWC) Document Conceptual Model [46].  Other XML document content models may also be used, but only one manifest XML document may be provided per content model. 
+A GeoPackage manifest is represented by a single XML document. The canonical GeoPackage manifest content model is an extension of the [ATOM] (#norm_ref_45) encoding of the [OGC® OWS Context (OWC) Document Conceptual Model] (#norm_ref_46).  Other XML document content models may also be used, but only one manifest XML document may be provided per content model. 
 
-A GeoPackage SHALL have a manifest table as defined in table 4.
-
-**Table 4** - `manifest` Table or View Definition
+**Table 3-3** - `manifest` Table or View Definition
 
 |Column Name|Column Type|Column Description|Null|Default|Key|
 |-----------|-----------|------------------|----|-------|---|
@@ -135,7 +133,7 @@ See Annex B: Table Definition SQL clause B.3 manifest.
 |Requirement|Core|
 |-----------|----|
 |URI        |http://www.opengis.net/spec/GPKG/1.0/req/core/manifest/manifest_table|
-|REQ 7.     |There SHALL be a manifest table in a GeoPackage as defined in **Table 4**|
+|REQ 7.     |There SHALL be a manifest table in a GeoPackage as defined in **Table 3-3**|
 
 #### 3.3.3 Manifest XML Schema
 
@@ -196,7 +194,7 @@ These tables SHALL be defined in every GeoPackage. However, they may contain 0 r
 
 The first component of GeoPackage metadata is the `xml_metadata` table that contains metadata in XML documents or document fragments.  This table may contain metadata structured in accordance with any authoritative metadata specification, such as ISO 19115 [42], ISO 19115-2 [B31], ISO 19139 [B32], Dublin Core [B33], CSDGM [B34], DDMS [B35], NMF/NMIS [B36], etc.  The GeoPackage interpretation of what constitutes “metadata” is a broad one that includes UML models [B37] encoded in XMI [B38], GML Application Schemas [B39], ISO 19110 feature catalogues [B40], OWL [B41] and SKOS [B42]taxonomies, etc.
 
-**Table 5** - `xml_metadata` Table or View Definition
+**Table 3-4** - `xml_metadata` Table or View Definition
 
 |Column Name|Column Type|Column Description|Null|Default|Key|
 |-----------|-----------|------------------|----|-------|---|
@@ -205,9 +203,9 @@ The first component of GeoPackage metadata is the `xml_metadata` table that cont
 |md_standard_uri|text   |URI reference to the metadata structure definition authority|no|http://schemas.opengis.net/iso/19139| |
 |metadata   |text       |XML metadata document or fragment|no|" "| |
 
-The `md_scope` column in the `xml_metadata` table is the name of the applicable scope for the contents of the metadata column for a given row. The list of valid scope names and their definitions is provided in table 6 below. The initial contents of this table were obtained from the ISO 19115 [42], Annex B B.5.25 `MD_ScopeCode` code list, which was extended for use in the GeoPackage specification by addition of entries with “NA” as the scope code column in table 6.
+The `md_scope` column in the `xml_metadata` table is the name of the applicable scope for the contents of the metadata column for a given row. The list of valid scope names and their definitions is provided in table 6 below. The initial contents of this table were obtained from the ISO 19115 [42], Annex B B.5.25 `MD_ScopeCode` code list, which was extended for use in the GeoPackage specification by addition of entries with “NA” as the scope code column in table 3-5.
 
-**Table 6** - Metadata Scopes
+**Table 3-5** - Metadata Scopes
 
 |Name (md_scope) |Scope Code|Definition |
 |----------------|----------|-----------|
@@ -247,7 +245,7 @@ See Annex B: Table Definition SQL clause B.4 `xml_metadata`.
 
 The second component of GeoPackage metadata is the `metadata_reference` table or view that links metadata in the `xml_metadata` table to data in the feature, raster, and tiles tables.
 
-**Table 7** - `metadata_reference` Table or View Definition
+**Table 3-6** - `metadata_reference` Table or View Definition
 
 |Column Name|Column Type|Column Description|Null|Default|Key|
 |-----------|-----------|------------------|----|-------|---|
@@ -259,7 +257,7 @@ The second component of GeoPackage metadata is the `metadata_reference` table or
 |md_file_id |int        |`xml_metadata` table id column value for the metadata to which this metadata_reference applies|no|0|FK|
 |md_parent_id|int       |`xml_metadata` table id column value for the hierarchical parent metadata for the metadata to which this `metadata_reference` applies|no|0|FK|
 
-Every GeoPackage SHALL contain a `metadata_reference` table with columns as defined in table 7   Every GeoPackage metadata_reference table that contains any rows SHALL contain at least one row record with an `md_parent_id` value of 0 that references the ‘undefined’ `xml_metadata` row record as defined by the SQL in SQL statement xx. Such record(s) establish the metadata reference to the “root” of a metadata hierarchy.
+Every GeoPackage SHALL contain a `metadata_reference` table with columns as defined in table 3-6. Every GeoPackage `metadata_reference` table that contains any rows SHALL contain at least one row record with an `md_parent_id` value of 0 that references the ‘undefined’ `xml_metadata` row record as defined by the SQL in SQL statement xx. Such record(s) establish the metadata reference to the “root” of a metadata hierarchy.
 
 > NOTE:  Such a metadata hierarchy may have only one level of defined metadata.
 
