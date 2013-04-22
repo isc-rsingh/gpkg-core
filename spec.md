@@ -9,7 +9,7 @@ NOTE: Grouping and dependency relationships of conformance classes for clause 6 
 
 The GeoPackage file format SHALL be an SQLite [9] database file with the version 3 file format [10][11]. A GeoPackage file shall be named with a `.geopackage` extension to enable operating system level handlers to determine that it is a GeoPackage without opening it. 
 
-NOTE1: SQLite has been used as the base for a number of vector, raster and tile storage specifications, and commercial and open-source implementations. It is deployed and supported by Google on Android [B1] and Apple on IOS [B2] mobile devices.  Testing on a laptop indicates that its performance scales well for databases in excess of 200GB containing vector and raster tables of more than 4 million rows.  
+> NOTE: SQLite has been used as the base for a number of vector, raster and tile storage specifications, and commercial and open-source implementations. It is deployed and supported by Google on Android [B1] and Apple on IOS [B2] mobile devices.  Testing on a laptop indicates that its performance scales well for databases in excess of 200GB containing vector and raster tables of more than 4 million rows.  
 
 The maximum size of a GeoPackage file is about 140TB. In practice a lower size limit may be imposed by the filesystem to which the file is written. Many mobile devices require external memory cards to be formatted using the FAT32 file system which imposes a maximum size limit of 4GB
 
@@ -62,11 +62,11 @@ A GeoPackage SHALL contain a `geopackage_contents` table or view as defined in t
 
 The `geopackage_contents` table is intended to provide a list of all geospatial data sets in the GeoPackage. The `data_type` specifies the type of content. The bounding box (`min_x`, `min_y`, `max_x`, `max_y`) provides an informative bounding box (not necessarily minimum bounding box) of the data set.  If the `srid` column value references a *geographic* coordinate reference system (CRS), then the min/max x/y values are in decimal degrees; otherwise, the srid references a *projected* CRS and the min/max x/y values are in the units specified by that CRS.
 
-NOTE1: the "0" default value for the srid column is for an undefined geographic CRS. See clause 6.3.2.2 below.
+> NOTE: the "0" default value for the srid column is for an undefined geographic CRS. See clause 6.3.2.2 below.
 
 Values of the `geopackage_contents` table or view `last_change` column SHALL be in ISO 8601 format containing a complete date plus UTC hours, minutes, seconds and a decimal fraction of a second, with a ‘Z’ (‘zulu’) suffix indicating UTC.
 
-NOTE2: The following statement selects such a timestamp value:
+> NOTE: The following statement selects such a timestamp value:
 ```SQL
 SELECT (strftime('%Y-%m-%dT%H:%M:%fZ','now')).
 ```
@@ -93,7 +93,7 @@ It SHALL also contain records to define all other spatial reference systems used
 
 In OGC 06-104r4 [INSTEAD OF OGC DOC #S HOW ABOUT SHORT NAMES THAT REFERENCE THE STANDARD, E.G. SFSQL] only the primary key column of this table is defined to be NOT NULL.  In a GeoPackage, all columns in this table or updateable view SHALL be defined to be NOT NULL.
 
-NOTE1:  See [B19] chapter 6 for a discussion of NULL column values.
+> NOTE:  See [B19] chapter 6 for a discussion of NULL column values.
 
 **Table 3** - `spatial_ref_sys` Table or View Definition
 
@@ -139,7 +139,7 @@ See Annex B: Table Definition SQL clause B.3 manifest.
 
 #### 8.3.3 Manifest XML Schema
 
-The GeoPackage manifest is defined in the `geoPackageContext.xsd` XML schema document shown in table xx below as an extension of the OGC Context document Atom Encoding defined in http://schemas.opengis.net/owc/1.0/OWSContextCore.xsd by 12-084 OWS Context Atom Encoding [47].  The Manifest for a GeoPackage is encoded as an atom:feed element that contains elements describing the GeoPackage itself and GeoPackages for adjacent areas, and atom:entry elements which describe the contents and optionally the source of data in GeoPackage container tables.  The `geoPackageContext.xsd` XML schema defines elements and attributes that are used to extend those of Atom and OWS Context. See the documentation elements in the schema in table xx for descriptions of these elements and attributes. Their use in a manifest document is discussed in the next section.
+The GeoPackage manifest is defined in the `geoPackageContext.xsd` XML schema document shown in table xx below as an extension of the OGC Context document Atom Encoding defined in [http://schemas.opengis.net/owc/1.0/OWSContextCore.xsd](http://schemas.opengis.net/owc/1.0/OWSContextCore.xsd) by 12-084 OWS Context Atom Encoding [47].  The Manifest for a GeoPackage is encoded as an atom:feed element that contains elements describing the GeoPackage itself and GeoPackages for adjacent areas, and atom:entry elements which describe the contents and optionally the source of data in GeoPackage container tables.  The `geoPackageContext.xsd` XML schema defines elements and attributes that are used to extend those of Atom and OWS Context. See the documentation elements in the schema in table xx for descriptions of these elements and attributes. Their use in a manifest document is discussed in the next section.
 
 The http://www.opengis.net/gpkg/1.0 namespace will be proposed to the OGC Naming Authority.
 
@@ -188,7 +188,7 @@ These tables SHALL be defined in every GeoPackage. However, they may contain 0 r
 |URI        |http://www.opengis.net/spec/GPKG/1.0/req/core/metadata/metadata_reference_table/undefined_parent_|
 |REQ 13.    |A `metadata_reference` table in a GeoPackage with any rows SHALL contain at least one row record with an `md_parent_id` value of 0 that references the ‘undefined’ `xml_metadata` row record as defined by the SQL in SQL statement xx (see REQ 11).|
 
-NOTE: Informative examples of hierarchical metadata are provided in Annex J.
+> NOTE: Informative examples of hierarchical metadata are provided in Annex J.
 
 #### 8.4.2 XML Metadata Table
 
@@ -210,6 +210,7 @@ The `md_scope` column in the `xml_metadata` table is the name of the applicable 
 **Table 6** - Metadata Scopes
 
 |Name (md_scope) |Scope Code|Definition |
+|----------------|----------|-----------|
 |undefined       |NA        |Metadata information scope is undefined|
 |fieldSession    |012       |Information applies to the field session|
 |collectionSession|004      |Information applies to the collection session|
@@ -230,13 +231,17 @@ The `md_scope` column in the `xml_metadata` table is the name of the applicable 
 |nonGeographicDataset|007   |Information applies to non-geographic data|
 |dimensionGroup  |008       |Information applies to a dimension group|
 
-NOTE1: The scope codes in Table 6 include a very wide set of descriptive information types as “metadata” to describe data.
-NOTE2: The “catalog” md_scope may be used for Feature Catalog [B40] information stored as XML metadata that is linked to features stored in a GeoPackage.
-NOTE3: The “schema” md_scope may be used for Application Schema [B37][B38][B39][B45] information stored as XML metadata that is linked to features stored in a GeoPackage.
-NOTE4: The “taxonomy” md_scope may be used for taxonomy or knowledge system [B41][B42] “linked data” information stored as XML metadata that is linked to features stored in a GeoPackage.
-A GeoPackage SHALL have an xml_metadata table.
-The xml_metadata table SHALL contain at least the row defined by the SQL insert statement show in Table 49.
-See Annex B: Table Definition SQL clause B.4 xml_metadata.
+> NOTE: The scope codes in Table 6 include a very wide set of descriptive information types as “metadata” to describe data.
+
+> NOTE: The “catalog” md_scope may be used for Feature Catalog [B40] information stored as XML metadata that is linked to features stored in a GeoPackage.
+
+> NOTE: The “schema” md_scope may be used for Application Schema [B37][B38][B39][B45] information stored as XML metadata that is linked to features stored in a GeoPackage.
+
+> NOTE: The “taxonomy” md_scope may be used for taxonomy or knowledge system [B41][B42] “linked data” information stored as XML metadata that is linked to features stored in a GeoPackage.
+
+A GeoPackage SHALL have an `xml_metadata` table.
+The `xml_metadata` table SHALL contain at least the row defined by the SQL insert statement show in Table 49.
+See Annex B: Table Definition SQL clause B.4 `xml_metadata`.
 
 #### 8.4.3 Metadata Reference Table
 
@@ -256,17 +261,17 @@ The second component of GeoPackage metadata is the `metadata_reference` table or
 
 Every GeoPackage SHALL contain a `metadata_reference` table with columns as defined in table 7   Every GeoPackage metadata_reference table that contains any rows SHALL contain at least one row record with an `md_parent_id` value of 0 that references the ‘undefined’ `xml_metadata` row record as defined by the SQL in SQL statement xx. Such record(s) establish the metadata reference to the “root” of a metadata hierarchy.
 
-NOTE1:  Such a metadata hierarchy may have only one level of defined metadata.
+> NOTE:  Such a metadata hierarchy may have only one level of defined metadata.
 
-NOTE2: A 0 `row_id_value` in the `metadata_reference` tables indicates table or column scope and no corresponding row for the metadata reference. So a data row with a rowed value of 0 cannot be the subject of a metadata reference.  GeoPackage applications should therefore avoid directly setting rowed values in feature, raster, or tile data tables to any values less than 1 to avoid assignment of 0 `rowid` values to data rows that could not be linked to metadata.
+> NOTE: A 0 `row_id_value` in the `metadata_reference` tables indicates table or column scope and no corresponding row for the metadata reference. So a data row with a rowid value of 0 cannot be the subject of a metadata reference.  GeoPackage applications should therefore avoid directly setting rowid values in feature, raster, or tile data tables to any values less than 1 to avoid assignment of 0 `rowid` values to data rows that could not be linked to metadata.
 
-NOTE3: In an SQLite implementation, the `rowid` value is always equal to the value of a single-column primary key on an integer column [B30] and is not changed by a database reorganization performed by the VACUUM SQL command.
+> NOTE: In an SQLite implementation, the `rowid` value is always equal to the value of a single-column primary key on an integer column [B30] and is not changed by a database reorganization performed by the VACUUM SQL command.
 
 Values of the `metadata_reference` table timestamp column SHALL be in ISO 8601 format containing a complete date plus UTC hours, minutes, seconds and a decimal fraction of a second, with a ‘Z’ (‘zulu’) suffix indicating UTC.
 
-NOTE4: The following statement selects such a timestamp value:
+> NOTE: The following statement selects such a timestamp value:
 ```SQL
-“SELECT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))”.
+SELECT (strftime('%Y-%m-%dT%H:%M:%fZ','now')).
 ```
 
 See Annex B: Table Definition SQL clause B.5 metadata_reference.
