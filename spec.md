@@ -27,11 +27,6 @@ The maximum size of a GeoPackage file is about 140TB. In practice a lower size l
 
 This document does not specify a data format. However, for a GeoPackage to be useful it must contain data. Therefore, Every implementation SHALL implement at least one of the GeoPackage data format extensions. 
 
-|Requirement|Core|
-|-----------|----|
-|URI        |http://www.opengis.net/spec/GPKG/1.0/req/core/data_format|
-|REQ 3.     |Implementation of this core specification is not sufficient to create a valid GeoPackage|
-
 ## 3 Global Tables
 
 ### 3.1 GeoPackage Contents Table
@@ -424,14 +419,29 @@ https://portal.opengeospatial.org/wiki/OWS9/GeoPackageOWSContext
 
 ## Annex B: Terms and definitions
 
-For the purposes of this document, the following terms and definitions apply. ### 4.1	**geolocate**identify a real-world geographic location
-### 4.2	**georectified**
-raster whose pixels have been regularly spaced in a geographic (i.e., latitude / longitude) or projected map coordinate system using ground control points so that any pixel can be geolocated given its grid coordinate and the grid origin, cell spacing, and orientation.
-### 4.3
-**orthorectified**
-georectified raster that has also been corrected to remove image perspective (camera angle tilt), camera and lens induced distortions, and terrain induced distortions using camera calibration parameters and DEM elevation data to accurately align with real world coordinates, have constant scale, and support direct measurement of distances, angles, and areas.
-### Annex C: Conventions
-#### C.1 Symbols (and abbreviated terms)
+For the purposes of this document, the following terms and definitions apply. 
+### 4.1	
+
+**geolocate**
+
+identify a real-world geographic location
+
+### 4.2	
+
+**georectified**
+
+raster whose pixels have been regularly spaced in a geographic (i.e., latitude / longitude) or projected map coordinate system using ground control points so that any pixel can be geolocated given its grid coordinate and the grid origin, cell spacing, and orientation.
+
+### 4.3
+
+**orthorectified**
+
+georectified raster that has also been corrected to remove image perspective (camera angle tilt), camera and lens induced distortions, and terrain induced distortions using camera calibration parameters and DEM elevation data to accurately align with real world coordinates, have constant scale, and support direct measurement of distances, angles, and areas.
+
+
+### Annex C: Conventions
+
+#### C.1 Symbols (and abbreviated terms)
 
 Some frequently used abbreviated terms:
 
@@ -673,4 +683,4 @@ http://trac.osgeo.org/geos/
 ###[B49]
 http://trac.osgeo.org/proj 
 
-
+
